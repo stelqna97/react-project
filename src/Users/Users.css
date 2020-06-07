@@ -1,0 +1,62 @@
+.user-card {
+    border: 1px solid black;
+    width: 300px;
+    margin: 10px;
+}
+
+.picture-holder {
+    position: relative;
+}
+
+.photo{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.edit-icon {
+    position: absolute;
+    right: 15px;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.user-edit-wrapper {
+    display: flex;
+    height: calc(100vh - 200px);
+    justify-content: center;
+    align-items: center;
+}
+.user-add-wrapper {
+    display: flex;
+    height: calc(100vh - 200px);
+    justify-content: center;
+    align-items: center;
+}
+
+.user-edit-form {
+    border: 1px solid rgb(214, 214, 214);
+    width: 600px;
+    padding: 20px;
+    background-color: rgb(240, 239, 239);
+}
+
+.user-add-form {
+    border: 1px solid rgb(214, 214, 214);
+    width: 600px;
+    padding: 20px;
+    background-color: rgb(240, 239, 239);
+}
+
+.link{
+    text-decoration: none;
+    color:rgb(110, 110, 110);
+}
+
+.link:hover{
+    color: rgb(20, 20, 20);
+    text-decoration: none;
+}
