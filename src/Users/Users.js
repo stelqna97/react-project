@@ -10,14 +10,11 @@ const cardStyle = {
     
 
 
-export function deleteByUserId(userid)
+/*export function deleteByUserId(userid)
 {
     let tasks=JSON.parse(window.localStorage.getItem("tasks"));
-    let result = tasks.filter(t => t.userid !== userid);
-    result.forEach(task => {
-        task.splice(userid, 1);
-    });
-    
+    let result = tasks.filter(t => t.user_id !== userid);
+   
     let jsonTask =JSON.stringify(result);
     localStorage.setItem("tasks",jsonTask);
 }
@@ -36,7 +33,7 @@ export function deleteUser(id){
           let usersJSON = JSON.stringify(users);
           localStorage.setItem("users", usersJSON);
     })
-}
+}*/
 
 
 export default class Users extends React.Component {
@@ -48,30 +45,40 @@ export default class Users extends React.Component {
             currentUser: JSON.parse(window.localStorage.getItem("currentUser")),
             tasks: JSON.parse(window.localStorage.getItem("tasks")),
             users: JSON.parse(window.localStorage.getItem("users")) ,
-            allUsers:[]            
+            allUsers:[]
+                        
         }
     }
 
-    delete = (id) =>{
+    /*delete = (id) =>{
+        let users = [...this.state.users];
+        let tasks = [...this.state.tasks];
+        deleteUser(id).then((users,tasks)=>{
+            this.setState({
+                users: users,
+                tasks:tasks
+              });
+        })
         
-      deleteByUserId(id).then(()=>{
+      /*deleteByUserId(id).then(()=>{
          getAllUsers().then(users=>{
             this.setState({
                 allUsers: users
               });
          });
-        });
-    }
-    /*delete = (id) =>{
-        let users = [...this.state.users];
-        let index = users.findIndex(u => u.id === id);
-        users.splice(index, 1);
+        });*/
+    //}
+    delete = (id) =>{
+        let users = [...this.state.users].filter(u => u.id !== id);
+        let allTasks=[...this.state.tasks];
+        let tasks = allTasks.filter(t => t.user_id !== id);
         this.setState({
-            users: users
+            users: users,
+            tasks:tasks
         })
-
         window.localStorage.setItem("users", JSON.stringify(users))
-    }*/
+        window.localStorage.setItem("tasks", JSON.stringify(tasks))
+    }
 
         
   

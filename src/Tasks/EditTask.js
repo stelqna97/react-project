@@ -8,18 +8,11 @@ export default class EditTask extends React.Component {
         
         this.state = {
             task: props.location.state.task
-    
-            
-            
-            
+  
         }
     }
 
   
-    
-
-     
-
 
     handleChange = (event) => {
         this.setState({

@@ -17,7 +17,7 @@ export default class AddTask extends React.Component {
                 description: "",
                 status:'Active',
                 time_of_creation: "",
-                rating:''
+                rating:'1'
             }
         }
 
@@ -31,6 +31,8 @@ export default class AddTask extends React.Component {
             }
         });
     }
+
+
 
     makeid = (length) => {
         var result = '';

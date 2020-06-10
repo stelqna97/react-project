@@ -14,7 +14,8 @@ export default class AddUser extends React.Component {
             username:'',
             photo:'',
             role:'user',
-            invalid:false
+            invalid:false,
+            errorMessage:''           
         }
         }
     }
@@ -25,6 +26,7 @@ export default class AddUser extends React.Component {
                 errorMessage: "This username is already taken."
             })
             return false;
+
         }
          this.setState({
             invalid: false
@@ -40,6 +42,7 @@ export default class AddUser extends React.Component {
                 [event.target.id]: event.target.value
             }
         });
+    
     }
 
     makeid = (length) => {
@@ -52,23 +55,29 @@ export default class AddUser extends React.Component {
         return result;
     }
 
-    createUser = () => {
-       if(this.isValid()){
-        let user = {
-            ...this.state.user,
-            id: this.makeid(20),
-            photo:'https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png'
-        }
-    
-        let users = [...this.state.users, user]
-        this.setState({
-            users: users
-        })
 
-        window.localStorage.setItem("users", JSON.stringify(users))
-        this.props.history.push("/users");
-       }
+    handleSubmit=(event)=>{
+        event.preventDefault()
+        if(this.isValid()){
+            let user = {
+                ...this.state.user,
+                id: this.makeid(20),
+                photo:'https://www.pngitem.com/pimgs/m/30-307416_profile-icon-png-image-free-download-searchpng-employee.png'
+            }
+        
+            let users = [...this.state.users, user]
+            this.setState({
+                users: users
+            })
+    
+            window.localStorage.setItem("users", JSON.stringify(users))
+            this.props.history.push("/users");
+        }
+           
+        
     }
+
+   
 
     
     
@@ -93,14 +102,17 @@ export default class AddUser extends React.Component {
                 </div>
                 
                 <div className="form-group">
-                    <label labelfor="role">Role: </label>
-                    <input type="text" name="role" id="role" className="form-control" onChange={this.handleChange} value={this.state.user.role} />
+                         <label labelfor="role">Role: </label>
+                    <select className="form-control" id="role" name="role" onChange={this.handleChange} value={this.state.user.role}>
+                        <option value="user">user</option>
+                        <option value="admin">admin </option>
+                    </select>
                 </div>
                 <div className="form-group">
                     <label labelfor="photo">Photo: </label>
                     <input type="text" name="photo" id="photo" className="form-control" onChange={this.handleChange} value={this.state.user.photo} />
                 </div>
-                <button className="btn btn-success"> <a className="link" href="/users" onClick={this.createUser}>Save</a></button>
+                <button className="btn btn-success"> Save</button>
                   <button className="btn btn-cancell">  <a className="link" href="/users"  onClick={() => this.props.history.push("/users")}>Cancel</a></button>
 
             </form>

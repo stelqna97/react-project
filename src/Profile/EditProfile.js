@@ -13,14 +13,10 @@ export default class EditProfile extends React.Component {
                 id: currentUser.id,
                 name: currentUser.name,
                 username: currentUser.username,
-                gender: currentUser.gender,
                 photo: currentUser.photo,
                 password: currentUser.password,
                 role: currentUser.role
             }
-
-
-        
     }
 
     

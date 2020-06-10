@@ -25,21 +25,36 @@ export default class Tasks extends React.Component {
     constructor(props) {
         super(props);
        
-        localStorage.removeItem('recipes');
+        
         this.state = {
             currentUser: JSON.parse(window.localStorage.getItem("currentUser")),
             tasks: JSON.parse(window.localStorage.getItem("tasks")),
             filtered: JSON.parse(window.localStorage.getItem("tasks")),
-            backgroundColor:''
+            bgColor: 'red'
         }
-
-       
     }
 
     
+     colorChangeStatus = () => {
+       if(this.state.tasks.status==="Active"){
+        this.setState({
+            bgColor: 'green'
+          })
+       }else if(this.state.tasks.status==="Done"){
+        this.setState({
+            bgColor: 'brown'
+          })
+       }else if(this.state.tasks.status==="Pending"){
+        this.setState({
+            bgColor: 'yellow'
+          })
+       }
+      };
+
 
     delete = (id) => {
         let tasks = [...this.state.tasks].filter(t => t.id !== id);
+        
         this.setState({
             tasks: tasks
             
@@ -69,10 +84,11 @@ export default class Tasks extends React.Component {
 
              <div className="tasks row" style={listStyles}>
               
-                
+           
+
               {
                   this.state.tasks.map((task,idx) =>
-                  <div className="card m-3" task={task} key={task.id} onChange={this.handleChange}>
+                  <div className="card m-3" style={{backgroundColor:this.state.bgColor}} task={task} key={task.id} onChange={this.colorChangeStatus}>
                 
                   <div className="card-body">
                       <h5 className="card-title">{task.user.username}</h5>

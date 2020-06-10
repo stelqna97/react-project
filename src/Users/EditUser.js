@@ -7,26 +7,47 @@ export default class EditUser extends React.Component {
 
     constructor(props){
         super(props);
-
+      
         this.state = {
-            
+          
             user: props.location.state.user
-            
             
         }
     }
+
+    isValid = () => {
+        const users = JSON.parse(window.localStorage.getItem("users"));
+        if (users.find(u => u.username === this.state.user.username)) {
+            this.setState({
+                invalid: true,
+                errorMessage: "This username is already taken."
+            })
+            return false;
+
+        }
+         this.setState({
+            invalid: false
+        })
+
+        return true;
+    }
+
     
 
     handleChange = (event) => {
+       
         this.setState({
             user: {
                 ...this.state.user,
                 [event.target.id]: event.target.value
             }
         });
+    
     }
 
-    save = ()=>{
+    handleSubmit = (event)=>{
+        event.preventDefault()
+        if(this.isValid()){
         let user = {
             ...this.state.user,
             dateOfModification: new Date().toString()
@@ -36,10 +57,12 @@ export default class EditUser extends React.Component {
         })
 
         let users = JSON.parse(window.localStorage.getItem("users"));
+        
         let index = users.findIndex(u => u.id === user.id);
         users[index] = user;
         window.localStorage.setItem("users", JSON.stringify(users));
         this.props.history.push("/users");
+    }
     }
 
     render() {
@@ -66,14 +89,17 @@ export default class EditUser extends React.Component {
                 </div>
                 
                 <div className="form-group">
-                    <label labelfor="role">Role: </label>
-                    <input type="text" name="name" id="role" className="form-control" onChange={this.handleChange} value={this.state.user.role} />
+                         <label labelfor="role">Role: </label>
+                    <select className="form-control" id="role" name="role" onChange={this.handleChange} value={this.state.user.role}>
+                        <option value="user">user</option>
+                        <option value="admin">admin </option>
+                    </select>
                 </div>
                 <div className="form-group">
                     <label labelfor="photo">Photo: </label>
                     <input type="text" name="name" id="photo" className="form-control" onChange={this.handleChange} value={this.state.user.photo} />
                 </div>
-                <button className="btn btn-success"><a className="link" href="/users"  onClick={this.save}>Save</a></button>
+                <button className="btn btn-success">Save</button>
                 
                 <button className="btn btn-cancel">  <a className="link" href="/users"  onClick={() => this.props.history.push("/users")}>Cancel</a></button>
             </form>

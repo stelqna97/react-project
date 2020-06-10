@@ -23,22 +23,7 @@ export default class Profile extends React.Component {
         });
     }
 
-    save = ()=>{
-        let user = {
-            ...this.state.user,
-            dateOfModification: new Date().toString()
-        }
-        this.setState({
-            currentUser: user,
-            user: user
-        })
 
-        window.localStorage.setItem("currentUser", JSON.stringify(user))
-        let users = JSON.parse(window.localStorage.getItem("users"));
-        let index = users.findIndex(u => u.id === user.id);
-        users[index] = user;
-        window.localStorage.setItem("users", JSON.stringify(users));
-    }
 
     
     render() {

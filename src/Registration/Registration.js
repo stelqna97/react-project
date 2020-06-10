@@ -31,9 +31,6 @@ export default class Registration extends React.Component {
             })
             return false;
         }
-       
-        
-
         this.setState({
             invalid: false
         })
@@ -62,7 +59,6 @@ export default class Registration extends React.Component {
                 password: this.state.password,
                 role: "user",
                 dateOfRegistration: new Date().toString(),
-                status: "active",
                 photo: ""
             }
             let users = [...this.state.users, user]
